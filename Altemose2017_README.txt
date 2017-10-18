@@ -1,5 +1,15 @@
 ##############README for Altemose et al. eLife 2017 source code
 #The following bash commands demonstrate our peak-calling and motif-finding pipelines
+#
+#last tested using 
+#samtools version 0.1.19-44428cd
+#bedtools version 2.23.0
+#perl version 5.22.4
+#R version 3.4.0
+#Linux version 4.11.12
+#on an x86_64-pc-linux-gnu (64-bit) server 
+#with 32 GB RAM and 32 cores (Intel Xeon CPU E5-2690 0 @ 2.90GHz)
+
 
 ####################
 #####1_Preprocessing
