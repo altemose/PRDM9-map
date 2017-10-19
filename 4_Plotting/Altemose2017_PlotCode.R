@@ -354,13 +354,14 @@ allA = subset(finaldata,(AA_hotspots==1) & is.na(WhichMotif)==F)
 ABonly[ABonly$WhichMotif==3 | ABonly$WhichMotif==5,"WhichMotif"]=2
 allA[allA$WhichMotif==3 | allA$WhichMotif==5,"WhichMotif"]=2
 
-nummots=7
+nummots=5
+motlist=c(1,2,4,6,7)
 midpoints = rep(0,nummots)
 results = rep(0,nummots)
 lower = rep(0,nummots)
 upper = rep(0,nummots)
-for(m in 1:nummots){
-	motifprops = function(x,i,j=m) mean(ABonly$WhichMotif[i]==j,na.rm=T) - mean(allA$WhichMotif[i]==j,na.rm=T)
+for(m in motlist){
+	motifprops = function(x,i,j=m) mean(ABonly$WhichMotif[i]==j,na.rm=T) / mean(allA$WhichMotif[i]==j,na.rm=T)
 	b1=boot(ABonly,motifprops,1000,sim="ordinary",stype="i")
 	c1=boot.ci(b1,conf=0.95,type="basic")
 	midpoints[m] = (mean(ABonly$WhichMotif==m)+mean(allA$WhichMotif==m))/2
@@ -374,16 +375,16 @@ lower = lower[pm]
 upper = upper[pm]
 
 #results
-#[1] -0.066815145 -0.024498886  0.008908686 -0.090200445  0.172605791
+#0.7014925 0.8589744 1.0470588 0.6447368 2.0839161
 
-plot(results,-1:-5,col=colors()[colorprof[pm]],pch=18,cex=1.5,ylab="",xlab="p(AB)-p(AA)",xlim=c(min(lower),max(upper)),yaxt='n',xaxt='n')
-abline(v=0,col='gray')
+plot(results,-1:-5,col=colors()[colorprof[pm]],pch=18,cex=1.5,ylab="",xlab="p(AB)/p(AA)",xlim=c(min(lower),max(upper)),yaxt='n',xaxt='n')
+abline(v=1,col='gray',lty=3)
 points(results,-1:-5,col=colors()[colorprof[pm]],pch=18,cex=1.5)
 segments(lower,-1:-5,upper,-1:-5,col=colors()[colorprof[pm]],lwd=2)
-axis(1,at=c(-0.1,0,0.1,0.2))
+axis(1,at=c(0,0.5,1.0,1.5,2.0))
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
-dev.copy2pdf(file=paste("plots/Figure1d_right.pdf",sep=""),width=2,height=5)
+dev.copy2pdf(file=paste("plots/Figure1d_right.pdf",sep=""),width=2,height=4)
 
 
 ##################################
