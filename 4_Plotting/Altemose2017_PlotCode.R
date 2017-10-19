@@ -1708,11 +1708,11 @@ for(i in 1:(length(bins1)-1)){
 	midpoints2[i] = median(sub2$enrichment,na.rm=TRUE)
 }
 
-plot(midpoints2,results2,xlab="PRDM9 ChIP-seq enrich.",ylab="Mean Rec. rate (cM/Mb)",col='firebrick',pch=16,xlim=c(0,max(midpoints2)),ylim=c(0,max(upper2)))
-segments(midpoints2,lower2,midpoints2,upper2,col='firebrick')
-points(midpoints1,results1,col=rgb(1,0,0,0.5),pch=15)
-segments(midpoints1,lower1,midpoints1,upper1,col=rgb(1,0,0,0.5))
-#legend("topleft",legend=c("Non-Promoter","Promoter"),col=c("firebrick",rgb(1,0,0,0.5)),pch=c(16,15))
+plot(midpoints2,results2,xlab="PRDM9 ChIP-seq enrich.",ylab="Mean Rec. rate (cM/Mb)",col=colors()[188],pch=16,xlim=c(0,max(midpoints2)),ylim=c(0,max(upper2)))
+segments(midpoints2,lower2,midpoints2,upper2,col=colors()[188])
+points(midpoints1,results1,col=colors()[525],pch=15)
+segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525])
+legend("topleft",legend=c("Non-Promoter","Promoter"),col=c(colors()[188],colors()[525]),pch=c(16,15))
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2c.pdf",sep=""),width=3.5,height=4)
@@ -1734,9 +1734,9 @@ smoothed2 = ksmooth(prof2$Position,prof2$Mean, "normal", bandwidth=10)
 smoothed2x=smoothed2$x[seq(1,20001,500)]
 smoothed2y=smoothed2$y[seq(1,20001,500)]
 
-plot(smoothed1x,smoothed1y,type='l',lty=3,col=rgb(1,0,0,0.5),ylim=c(0.7,4.9),main="",lwd=2,xlab="distance from motif center (bp)",ylab="mean rec. rate (cM/Mb)")
-lines(smoothed2,col='firebrick',ylim=c(0,5.5),main="",lwd=2,xlab="distance from motif center (bp)",ylab="mean rec. rate (cM/Mb)")
-#legend("topleft",legend=c("Non-Promoter (enrich. 1-2)","Promoter (enrich. 1-2)"),col=c("firebrick",rgb(1,0,0,0.5)),lty=c(1,3),lwd=2,cex=1,bty='n')
+plot(smoothed1x,smoothed1y,type='l',lty=3,col=colors()[525],ylim=c(0.7,4.9),main="",lwd=3,xlab="distance from motif center (bp)",ylab="mean rec. rate (cM/Mb)")
+lines(smoothed2,col=colors()[188],ylim=c(0,5.5),main="",lwd=3,xlab="distance from motif center (bp)",ylab="mean rec. rate (cM/Mb)")
+#legend("topleft",legend=c("Non-Promoter (enrich. 1-2)","Promoter (enrich. 1-2)"),col=c(colors()[188],colors()[525]),lty=c(1,3),lwd=3,cex=1,bty='n')
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2d.pdf",sep=""),width=3.5,height=4)
@@ -1802,8 +1802,8 @@ smoothedUx=smoothedU$x[seq(1,10001,100)]
 smoothedUy=smoothedU$y[seq(1,10001,100)]
 
 colorprof=c(468,469,470,471)
-plot(smoothedHx,smoothedHy,type='l',col='firebrick',xlab="",ylab="",main="",lwd=3,ylim=c(0,0.5))
-lines(smoothedUx,smoothedUy,type='l',col='firebrick',xlab="",ylab="",main="",lwd=3,lty=3)
+plot(smoothedHx,smoothedHy,type='l',col=colors()[188],xlab="",ylab="",main="",lwd=3,ylim=c(0,0.5))
+lines(smoothedUx,smoothedUy,type='l',col=colors()[188],xlab="",ylab="",main="",lwd=3,lty=3)
 
 
 load("finalMeansProfile.HumanK36enrichHumanPeakCentres.MotifCentred.MotifsOnly.Promoters.q4.all.r")
@@ -1819,10 +1819,10 @@ smoothedUx=smoothedU$x[seq(1,10001,100)]
 smoothedUy=smoothedU$y[seq(1,10001,100)]
 
 colorprof=c(468,469,470,471)
-lines(smoothedHx,smoothedHy,type='l',col=rgb(1,0,0,0.5),xlab="",ylab="",main="",lwd=3,ylim=c(0,0.35))
-lines(smoothedUx,smoothedUy,type='l',col=rgb(1,0,0,0.5),xlab="",ylab="",main="",lwd=3,lty=3)
+lines(smoothedHx,smoothedHy,type='l',col=colors()[525],xlab="",ylab="",main="",lwd=3,ylim=c(0,0.35))
+lines(smoothedUx,smoothedUy,type='l',col=colors()[525],xlab="",ylab="",main="",lwd=3,lty=3)
 
-#legend("topright",legend=c("NonProm., Transf.","NonProm., Untransf.","Prom., Transf.","Prom., Untransf."),col=c('firebrick','firebrick',rgb(1,0,0,0.5),rgb(1,0,0,0.5)),lty=c(1,3,1,3),lwd=3,cex=0.75,bty='n')
+#legend("topright",legend=c("NonProm., Transf.","NonProm., Untransf.","Prom., Transf.","Prom., Untransf."),col=c(colors()[188],colors()[188],colors()[525],colors()[525]),lty=c(1,3,1,3),lwd=3,cex=0.75,bty='n')
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2g.pdf",sep=""),width=3.5,height=4)
@@ -1894,16 +1894,16 @@ for(p in 1:2){
 	}
 
 	if(p==1){
-		plot(midpoints1,results1,col=colors()[colorprof[p]],type="l",lwd=3,xlab="",ylab="",ylim=c(0,0.17),lty=3)
-		points(midpoints1,results1,col=colors()[colorprof[p]],pch=16)
-		segments(midpoints1,lower1,midpoints1,upper1,col=colors()[colorprof[p]],lwd=2)
+		plot(midpoints1,results1,col=colors()[525],type="l",lwd=3,xlab="",ylab="",ylim=c(0,0.17),lty=3)
+		points(midpoints1,results1,col=colors()[525],pch=16)
+		segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525],lwd=2)
 	}else{
-		lines(midpoints1,results1,col=colors()[colorprof[4]],type="l",lwd=3,xlab="",ylab="")
-		points(midpoints1,results1,col=colors()[colorprof[4]],pch=16)
-		segments(midpoints1,lower1,midpoints1,upper1,col=colors()[colorprof[4]],lwd=2)
+		lines(midpoints1,results1,col=colors()[525],type="l",lwd=3,xlab="",ylab="")
+		points(midpoints1,results1,col=colors()[525],pch=16)
+		segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525],lwd=2)
 	}
 }
-#legend("topright",legend=c("Transfected","Untransfected"),col=c(colors()[colorprof[4]],colors()[colorprof[1]]),lty=c(1,3),lwd=3,cex=1.5,bty='n')
+#legend("topright",legend=c("Transfected","Untransfected"),col=c(colors()[525]),lty=c(1,3),lwd=3,cex=1,bty='n')
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2h.pdf",sep=""),width=3.5,height=4)
@@ -2122,11 +2122,11 @@ for(i in 1:(length(bins1)-1)){
 	midpoints1[i] = median(sub1$FIMO_score,na.rm=TRUE)
 	midpoints2[i] = median(sub2$FIMO_score,na.rm=TRUE)
 }
-plot(midpoints2,results2,xlab="",ylab="",col='firebrick',pch=16,main="",xlim=c(12,max(midpoints2)),ylim=c(0,50))
-points(midpoints1,results1,col=rgb(1,0,0,0.5),pch=16)
-segments(midpoints2,lower2,midpoints2,upper2,col='firebrick')
-segments(midpoints1,lower1,midpoints1,upper1,col=rgb(1,0,0,0.5))
-#legend("topleft",legend=c("Non-promoter","Promoter"),col=c('firebrick',rgb(1,0,0,0.5)),pch=16)
+plot(midpoints2,results2,xlab="",ylab="",col=colors()[188],pch=16,main="",xlim=c(12,max(midpoints2)),ylim=c(0,50))
+points(midpoints1,results1,col=colors()[525],pch=16)
+segments(midpoints2,lower2,midpoints2,upper2,col=colors()[188])
+segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525])
+#legend("topleft",legend=c("Non-promoter","Promoter"),col=c(colors()[188],colors()[525]),pch=16)
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2_S2b.pdf",sep=""),width=3.5,height=4)
@@ -2161,11 +2161,11 @@ for(i in 1:(length(bins1)-1)){
 	midpoints1[i] = median(sub1$FIMO_score,na.rm=TRUE)
 	midpoints2[i] = median(sub2$FIMO_score,na.rm=TRUE)
 }
-plot(midpoints2,results2,xlab="",ylab="",col='firebrick',pch=16,main="",xlim=c(12,max(midpoints2)),ylim=c(60,200))
-points(midpoints1,results1,col=rgb(1,0,0,0.5),pch=16)
-segments(midpoints2,lower2,midpoints2,upper2,col='firebrick')
-segments(midpoints1,lower1,midpoints1,upper1,col=rgb(1,0,0,0.5))
-#legend("topleft",legend=c("Non-promoter","Promoter"),col=c('firebrick',rgb(1,0,0,0.5)),pch=16)
+plot(midpoints2,results2,xlab="",ylab="",col=colors()[188],pch=16,main="",xlim=c(12,max(midpoints2)),ylim=c(60,200))
+points(midpoints1,results1,col=colors()[525],pch=16)
+segments(midpoints2,lower2,midpoints2,upper2,col=colors()[188])
+segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525])
+#legend("topleft",legend=c("Non-promoter","Promoter"),col=c(colors()[188],colors()[525]),pch=16)
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2_S2c.pdf",sep=""),width=3.5,height=4)
@@ -2200,11 +2200,11 @@ for(i in 1:(length(bins1)-1)){
 	midpoints2[i] = median(sub2$FIMO_score,na.rm=TRUE)
 }
 
-plot(midpoints2,results2,xlab="",ylab="",col='firebrick',pch=16,main="",xlim=c(12,max(midpoints2)),ylim=c(0,max(upper2)))
-points(midpoints1,results1,col=rgb(1,0,0,0.5),pch=16)
-segments(midpoints2,lower2,midpoints2,upper2,col='firebrick')
-segments(midpoints1,lower1,midpoints1,upper1,col=rgb(1,0,0,0.5))
-#legend("topleft",legend=c("Non-promoter","Promoter"),col=c('firebrick',rgb(1,0,0,0.5)),pch=16)
+plot(midpoints2,results2,xlab="",ylab="",col=colors()[188],pch=16,main="",xlim=c(12,max(midpoints2)),ylim=c(0,max(upper2)))
+points(midpoints1,results1,col=colors()[525],pch=16)
+segments(midpoints2,lower2,midpoints2,upper2,col=colors()[188])
+segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525])
+#legend("topleft",legend=c("Non-promoter","Promoter"),col=c(colors()[188],colors()[525]),pch=16)
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2_S2d.pdf",sep=""),width=3.5,height=4)
@@ -2282,11 +2282,11 @@ for(i in 1:(length(bins1)-1)){
 	midpoints2[i] = median(sub2$enrichment,na.rm=TRUE)
 }
 
-plot(midpoints2,results2,xlab="PRDM9 ChIP-seq enrich.",ylab="DMC1 enrich.",col='firebrick',pch=16,xlim=c(0,max(midpoints2)),ylim=c(0,max(upper2)))
-segments(midpoints2,lower2,midpoints2,upper2,col='firebrick')
-points(midpoints1,results1,col=rgb(1,0,0,0.5),pch=15)
-segments(midpoints1,lower1,midpoints1,upper1,col=rgb(1,0,0,0.5))
-#legend("topleft",legend=c("Non-Promoter","Promoter"),col=c("firebrick",rgb(1,0,0,0.5)),pch=c(16,15))
+plot(midpoints2,results2,xlab="PRDM9 ChIP-seq enrich.",ylab="DMC1 enrich.",col=colors()[188],pch=16,xlim=c(0,max(midpoints2)),ylim=c(0,max(upper2)))
+segments(midpoints2,lower2,midpoints2,upper2,col=colors()[188])
+points(midpoints1,results1,col=colors()[525],pch=15)
+segments(midpoints1,lower1,midpoints1,upper1,col=colors()[525])
+legend("topleft",legend=c("Non-Promoter","Promoter"),col=c(colors()[188],colors()[525]),pch=c(16,15))
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2_S2e.pdf",sep=""),width=3.5,height=4)
@@ -2309,9 +2309,9 @@ smoothed2 = ksmooth(prof2$Position,prof2$Mean, "normal", bandwidth=500)
 smoothed2x=smoothed2$x[seq(1,20001,250)]
 smoothed2y=smoothed2$y[seq(1,20001,250)]
 
-plot(smoothed1x,smoothed1y,type='l',lty=3,col=rgb(1,0,0,0.5),ylim=c(1.8,3.4),main="",lwd=2,xlab="distance from motif center (bp)",ylab="mean DMC1 coverage (reads/bp)")
-lines(smoothed2,type='l',col='firebrick',main="",lwd=2,xlab="distance from Motif Center (bp)")
-#legend("topleft",legend=c("Non-Promoter (enrich. 1-2)","Promoter (enrich. 1-2)"),col=c("firebrick",rgb(1,0,0,0.5)),lty=c(1,3),lwd=2, cex=0.75)
+plot(smoothed1x,smoothed1y,type='l',lty=3,col=colors()[525],ylim=c(1.8,3.4),main="",lwd=3,xlab="distance from motif center (bp)",ylab="mean DMC1 coverage (reads/bp)")
+lines(smoothed2,type='l',col=colors()[188],main="",lwd=3,xlab="distance from Motif Center (bp)")
+legend("topleft",legend=c("Non-Promoter (enrich. 1-2)","Promoter (enrich. 1-2)"),col=c(colors()[188],colors()[525]),lty=c(1,3),lwd=2, cex=0.75)
 
 system("mkdir plots",ignore.stdout = T, ignore.stderr = T)
 dev.copy2pdf(file=paste("plots/Figure2_S2f.pdf",sep=""),width=3.5,height=4)
